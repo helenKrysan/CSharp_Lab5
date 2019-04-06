@@ -24,7 +24,7 @@ namespace Lab5_Krysan.ViewModels
             get
             {
                 return _details ?? (_details = new RelayCommand(
-                           o => { NavigationManager.Instance.Navigate(ViewType.ProcessDetails); }));
+                           o => { NavigationManager.Instance.Navigate(ViewType.ProcessDetails); }, CanExecute));
             }
         }
 
@@ -33,34 +33,47 @@ namespace Lab5_Krysan.ViewModels
             get
             {
                 return _goToFile ?? (_goToFile = new RelayCommand(
-                           o => { Process.Start(new System.Diagnostics.ProcessStartInfo()
+                           o =>
                            {
-                               FileName =Path.GetDirectoryName(StationManager.CurrentProcess.FilePath),
+                               Process.Start(new System.Diagnostics.ProcessStartInfo()
+                               {
+                                   FileName = Path.GetDirectoryName(StationManager.CurrentProcess.FilePath),
                                UseShellExecute = true,
                                Verb = "open"
-                           });  }));
+                           });
+            }, CanExecute));
+        }
+    }
+
+        public bool CanExecute(object o)
+        {
+            if(StationManager.CurrentProcess != null && StationManager.CurrentProcess.FilePath != null)
+            {
+                return true;
             }
+            return false;
         }
 
         public RelayCommand EndTask
+    {
+        get
         {
-            get
-            {
-                return _endTask ?? (_endTask = new RelayCommand(
-                           o => {
-                               Process.GetProcessById(StationManager.CurrentProcess.Id).Kill();
-                               StationManager.DataStorage.Delete(StationManager.CurrentProcess.Name);
-                               StationManager.CurrentProcess = null;
-                           }));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return _endTask ?? (_endTask = new RelayCommand(
+                       o =>
+                       {
+                           Process.GetProcessById(StationManager.CurrentProcess.Id).Kill();
+                           StationManager.DataStorage.Delete(StationManager.CurrentProcess.Name);
+                           StationManager.CurrentProcess = null;
+                       }));
         }
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
 
 }

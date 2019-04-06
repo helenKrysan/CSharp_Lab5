@@ -89,6 +89,8 @@ namespace Lab5_Krysan.ViewModels
                 }
                 LoaderManager.Instance.ShowLoader();
 
+                if (SelectedProcess != null) Selector = true;
+
                 Processes = new ObservableCollection<ProcessModel>(StationManager.DataStorage.ProcessesList);
                 if (_token.IsCancellationRequested)
                     break;
