@@ -15,6 +15,7 @@ namespace Lab5_Krysan.ViewModels
     {
         private ObservableCollection<ProcessModel> _processes;
         private Thread _workingThread;
+        private Thread _workingThread2;
         private CancellationToken _token;
         private CancellationTokenSource _tokenSource;
 
@@ -68,6 +69,8 @@ namespace Lab5_Krysan.ViewModels
         private void StartWorkingThread()
         {
             _workingThread = new Thread(WorkingThreadProcess);
+            _workingThread2 = new Thread(WorkingThreadProcess2);
+            _workingThread2.Start();
             _workingThread.Start();
         }
 
@@ -84,6 +87,7 @@ namespace Lab5_Krysan.ViewModels
                     sp = SelectedProcess;
                 }
                 LoaderManager.Instance.ShowLoader();
+
                 Processes = new ObservableCollection<ProcessModel>(StationManager.DataStorage.ProcessesList);
                 if (_token.IsCancellationRequested)
                     break;
@@ -91,7 +95,7 @@ namespace Lab5_Krysan.ViewModels
                 SelectedProcess = sp;
                 if(SelectedProcess != null) Selector = true;
                 StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(sp);
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     Thread.Sleep(500);
                     if (_token.IsCancellationRequested)
@@ -102,6 +106,31 @@ namespace Lab5_Krysan.ViewModels
                 i++;
             }
 
+        }
+
+        private void WorkingThreadProcess2()
+        {
+            int i = 0;
+            while (!_token.IsCancellationRequested)
+            {
+                var processes = Process.GetProcesses();
+                foreach (var p in processes)
+                {
+                    if (!StationManager.DataStorage.ProcessExists(p.ProcessName))
+                    {
+                        StationManager.DataStorage.AddProcess(new ProcessModel(p));
+                    }
+                }
+                for (int j = 0; j < 10; j++)
+                {
+                    Thread.Sleep(500);
+                    if (_token.IsCancellationRequested)
+                        break;
+                }
+                if (_token.IsCancellationRequested)
+                    break;
+                i++;
+            }
         }
 
         internal void StopWorkingThread()
