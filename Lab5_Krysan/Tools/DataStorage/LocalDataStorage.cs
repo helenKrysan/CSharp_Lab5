@@ -30,6 +30,10 @@ namespace Lab5_Krysan.Tools.DataStorage
             Parallel.ForEach<ProcessModel>(_processes, po, o => o.Update());
         }
 
+        public void Delete(string name)
+        {
+            _processes.Remove(GetProcessByName(name));
+        }
 
         public void AddProcess(ProcessModel process)
         {

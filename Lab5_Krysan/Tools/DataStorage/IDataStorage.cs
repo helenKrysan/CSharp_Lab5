@@ -13,6 +13,8 @@ namespace Lab5_Krysan.Tools.DataStorage
 
         void Update();
 
+        void Delete(string name);
+
         List<ProcessModel> ProcessesList { get; }
     }
 }
