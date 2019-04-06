@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Controls;
+
 namespace Lab5_Krysan.ViewModels
 {
     class ProcessListViewModel : INotifyPropertyChanged
@@ -55,10 +57,9 @@ namespace Lab5_Krysan.ViewModels
         internal ProcessListViewModel()
         {
             var processes = Process.GetProcesses();
-            foreach (var p in processes)
-            {
-                StationManager.DataStorage.AddProcess(new ProcessModel(p));
-            }
+            var po = new ParallelOptions { MaxDegreeOfParallelism = 60 };
+            Parallel.ForEach(processes, po, o => StationManager.DataStorage.AddProcess(new ProcessModel(o)));
+
             _processes = new ObservableCollection<ProcessModel>(StationManager.DataStorage.ProcessesList);
             _tokenSource = new CancellationTokenSource();
             _token = _tokenSource.Token;
@@ -94,8 +95,8 @@ namespace Lab5_Krysan.ViewModels
                 LoaderManager.Instance.HideLoader();
                 SelectedProcess = sp;
                 if(SelectedProcess != null) Selector = true;
-                StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(sp);
-                for (int j = 0; j < 6; j++)
+                    StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(sp);
+                for (int j = 0; j < 4; j++)
                 {
                     Thread.Sleep(500);
                     if (_token.IsCancellationRequested)

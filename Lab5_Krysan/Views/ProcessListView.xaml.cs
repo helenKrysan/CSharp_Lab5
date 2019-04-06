@@ -13,5 +13,10 @@ namespace Lab5_Krysan.Views
             InitializeComponent();
             DataContext = new ProcessListViewModel();
         }
+
+        private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+
+        }
     }
 }
