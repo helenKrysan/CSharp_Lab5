@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Management;
 
 namespace Lab5_Krysan.Models
 {
@@ -36,10 +37,11 @@ namespace Lab5_Krysan.Models
             _cpu = "0%";
             _memory = process.PagedSystemMemorySize64.ToString();
             _threadsNumber = process.Threads.Count;
-            _user = process.StartInfo.UserName;
-            _filePath = process.StartInfo.FileName;
             try
             {
+                _user = process.MainModule.ModuleName;
+               _filePath = process.MainModule.FileName;
+           
                 _started = process.StartTime;
 
             }
@@ -173,8 +175,7 @@ namespace Lab5_Krysan.Models
             _cpu = "0%";
             _memory = process.PagedSystemMemorySize64.ToString();
             _threadsNumber = process.Threads.Count;
-            _user = process.StartInfo.UserName;
-            _filePath = process.StartInfo.FileName;
+           
             try
             {
                 _started = process.StartTime;
