@@ -19,7 +19,13 @@ namespace Lab5_Krysan.Models
         private string _filePath;
         private DateTime _started;
 
+        private DateTime _lastTime;
+        private TimeSpan _lastTotalProcessorTime;
+        private DateTime _curTime;
+        private TimeSpan _curTotalProcessorTime;
+
         private ProcessThreadCollection _threads;
+
 
         public ProcessModel(Process process)
         {
@@ -34,12 +40,15 @@ namespace Lab5_Krysan.Models
             {
                 _status = "Running";
             }
+            
             _cpu = "0%";
-            _memory = process.PagedSystemMemorySize64.ToString();
+            _memory = (process.PagedSystemMemorySize64/(1024*1024)).ToString();
             _threadsNumber = process.Threads.Count;
             try
             {
-                _user = process.MainModule.ModuleName;
+                _curTotalProcessorTime = process.TotalProcessorTime;
+                _curTime = DateTime.Now;
+                _user = process.StartInfo.UserName;
                _filePath = process.MainModule.FileName;
            
                 _started = process.StartTime;
@@ -164,6 +173,7 @@ namespace Lab5_Krysan.Models
                 return;
             }
 
+          
             if (!process.Responding)
             {
                 _status = "Not Respond";
@@ -173,11 +183,19 @@ namespace Lab5_Krysan.Models
                 _status = "Running";
             }
             _cpu = "0%";
-            _memory = process.PagedSystemMemorySize64.ToString();
+            _memory = (process.PagedSystemMemorySize64 / (1024)).ToString() + "KB";
             _threadsNumber = process.Threads.Count;
            
             try
             {
+                _lastTime = _curTime;
+                _lastTotalProcessorTime = _curTotalProcessorTime;
+                _curTotalProcessorTime = process.TotalProcessorTime;
+                _curTime = DateTime.Now;
+                double CPUUsage = (_curTotalProcessorTime.TotalMilliseconds - _lastTotalProcessorTime.TotalMilliseconds) / _curTime.Subtract(_lastTime).Milliseconds;
+
+                _cpu = (CPUUsage ) + "%";
+
                 _started = process.StartTime;
 
             }
