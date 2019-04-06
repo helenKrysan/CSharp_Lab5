@@ -6,16 +6,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Diagnostics;
+
 namespace Lab5_Krysan.ViewModels
 {
-    class ProcessThreadListViewModel
+    class ModuleListViewModel
     {
-        private ObservableCollection<ProcessThreadModel> _processes;
+        private ObservableCollection<ModuleModel> _processes;
 
-        public ObservableCollection<ProcessThreadModel> ProcessesThreads
+        public ObservableCollection<ModuleModel> ProcessesModules
         {
             get => _processes;
             private set
@@ -24,16 +23,16 @@ namespace Lab5_Krysan.ViewModels
                 OnPropertyChanged();
             }
         }
-    
-        internal ProcessThreadListViewModel()
+
+        internal ModuleListViewModel()
         {
-            var processThreads = Process.GetProcessById(StationManager.CurrentProcess.Id).Threads;
-            List<ProcessThreadModel> processThreadsList = new List<ProcessThreadModel>();
+            var processThreads = Process.GetProcessById(StationManager.CurrentProcess.Id).Modules;
+            List<ModuleModel> processModulesList = new List<ModuleModel>();
             foreach (var t in processThreads)
             {
-                processThreadsList.Add(new ProcessThreadModel((ProcessThread) t));
+                processModulesList.Add(new ModuleModel((ProcessModule)t));
             }
-            _processes = new ObservableCollection<ProcessThreadModel>(processThreadsList);
+            _processes = new ObservableCollection<ModuleModel>(processModulesList);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,3 +43,4 @@ namespace Lab5_Krysan.ViewModels
         }
     }
 }
+

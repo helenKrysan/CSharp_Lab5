@@ -76,7 +76,7 @@ namespace Lab5_Krysan.ViewModels
                 LoaderManager.Instance.HideLoader();
                 SelectedProcess = sp;
                 StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(sp);
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     Thread.Sleep(500);
                     if (_token.IsCancellationRequested)
