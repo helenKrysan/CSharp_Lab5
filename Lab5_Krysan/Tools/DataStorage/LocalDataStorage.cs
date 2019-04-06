@@ -25,10 +25,9 @@ namespace Lab5_Krysan.Tools.DataStorage
 
         public void Update()
         {
-            foreach(var p in _processes)
-            {
-                p.Update();
-            }
+
+            var po = new ParallelOptions { MaxDegreeOfParallelism = 30 };
+            Parallel.ForEach<ProcessModel>(_processes, po, o => o.Update());
         }
 
 
