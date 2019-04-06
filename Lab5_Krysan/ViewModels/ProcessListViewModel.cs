@@ -34,7 +34,8 @@ namespace Lab5_Krysan.ViewModels
             set
             {
                     _selectedProcess = value;
-                    OnPropertyChanged();
+                StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(_selectedProcess);
+                OnPropertyChanged();
             }
         }
 
@@ -67,6 +68,7 @@ namespace Lab5_Krysan.ViewModels
                 string sp = null;
                 if (SelectedProcess != null)
                 {
+                   
                     sp = SelectedProcess;
                 }
                 LoaderManager.Instance.ShowLoader();

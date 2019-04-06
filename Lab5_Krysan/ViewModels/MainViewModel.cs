@@ -3,6 +3,7 @@ using Lab5_Krysan.Tools.Managers;
 using Lab5_Krysan.Tools.Navigation;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 
@@ -32,7 +33,12 @@ namespace Lab5_Krysan.ViewModels
             get
             {
                 return _goToFile ?? (_goToFile = new RelayCommand(
-                           o => { }));
+                           o => { Process.Start(new System.Diagnostics.ProcessStartInfo()
+                           {
+                               FileName =Path.GetDirectoryName(StationManager.CurrentProcess.FilePath),
+                               UseShellExecute = true,
+                               Verb = "open"
+                           });  }));
             }
         }
 
