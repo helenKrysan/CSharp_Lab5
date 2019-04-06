@@ -32,9 +32,10 @@ namespace Lab5_Krysan.Tools.Navigation
                 switch (viewType)
                 {
                     case ViewType.ProcessDetails:
+                        ViewsDictionary[viewType] = new ProcessDetailsView();
                         break;
                     case ViewType.Main:
-                        ViewsDictionary[viewType] = new MainView();
+                        
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);

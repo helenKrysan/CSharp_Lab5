@@ -40,7 +40,7 @@ namespace Lab5_Krysan.ViewModels
         {
             get
             {
-                return _details ?? (_details = new RelayCommand(
+                return _endTask ?? (_endTask = new RelayCommand(
                            o => {
                                Process.GetProcessById(StationManager.CurrentProcess.Id).Kill();
                                StationManager.DataStorage.ProcessesList.Remove(StationManager.CurrentProcess);

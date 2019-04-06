@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ProcessThreadModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Tools\DataStorage\IDataStorage.cs" />
     <Compile Include="Tools\DataStorage\LocalDataStorage.cs" />
@@ -70,9 +71,11 @@
     <Compile Include="Tools\Navigation\INavigationModel.cs" />
     <Compile Include="Tools\Navigation\ViewProcessDetailsNavigationModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProcessListViewModel.cs" />
+    <Compile Include="ViewModels\ProcessThreadListViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -81,6 +84,9 @@
     </Compile>
     <Compile Include="Views\ProcessDetailsView.xaml.cs">
       <DependentUpon>ProcessDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProcessThreadListView.xaml.cs">
+      <DependentUpon>ProcessThreadListView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProcessDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProcessThreadListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

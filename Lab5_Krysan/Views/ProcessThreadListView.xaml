@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Lab5_Krysan.Views.ProcessThreadListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab5_Krysan.Views"
+        mc:Ignorable="d"
+        Height="300" Width="300">
+	<DataGrid  CanUserDeleteRows="False" CanUserSortColumns="True" ItemsSource="{Binding ProcessesThreads, Mode=OneWay}" AutoGenerateColumns="False" >
+		<DataGrid.Columns>
+			<DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+			<DataGridTextColumn IsReadOnly="True" Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
+			<DataGridTextColumn IsReadOnly="True" Header="Started" Binding="{Binding Started}"></DataGridTextColumn>
+		</DataGrid.Columns>
+	</DataGrid>
+</UserControl>

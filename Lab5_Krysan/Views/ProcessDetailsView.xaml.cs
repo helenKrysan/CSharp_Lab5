@@ -1,4 +1,5 @@
 ﻿using Lab5_Krysan.Tools.Navigation;
+using Lab5_Krysan.ViewModels;
 using System.Windows.Controls;
 
 namespace Lab5_Krysan.Views
@@ -11,6 +12,7 @@ namespace Lab5_Krysan.Views
         public ProcessDetailsView()
         {
             InitializeComponent();
+            DataContext = new DetailsViewModel();
         }
     }
 }
