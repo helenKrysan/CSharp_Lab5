@@ -18,6 +18,18 @@ namespace Lab5_Krysan.ViewModels
         private CancellationToken _token;
         private CancellationTokenSource _tokenSource;
 
+        private bool _selector;
+        public bool Selector{
+            get => _selector;
+            set
+            {
+                _selector = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
         public ObservableCollection<ProcessModel> Processes
         {
             get => _processes;
@@ -77,6 +89,7 @@ namespace Lab5_Krysan.ViewModels
                     break;
                 LoaderManager.Instance.HideLoader();
                 SelectedProcess = sp;
+                if(SelectedProcess != null) Selector = true;
                 StationManager.CurrentProcess = StationManager.DataStorage.GetProcessByName(sp);
                 for (int j = 0; j < 10; j++)
                 {

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lab5_Krysan.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<DataGrid SelectedValuePath="Name" CanUserDeleteRows="False" CanUserSortColumns="True" SelectedValue="{Binding SelectedProcess, Mode=TwoWay}" ItemsSource="{Binding Processes, Mode=OneWay}" AutoGenerateColumns="False" >
+	<DataGrid FocusManager.IsFocusScope="{Binding Selector}"  SelectedValuePath="Name" CanUserDeleteRows="False" CanUserSortColumns="True" SelectedValue="{Binding SelectedProcess, Mode=TwoWay}" ItemsSource="{Binding Processes, Mode=OneWay}" AutoGenerateColumns="False" >
 		<DataGrid.Columns>
 			<DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
 			<DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
